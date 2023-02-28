@@ -5,5 +5,6 @@ Rails.application.routes.draw do
         get "/user_follows/followers", to: "user_follows#followers"
         get "/user_follows/followees", to: "user_follows#followees"
         delete "/user_follows", to: "user_follows#destroy"
+        get "/user_follows/sleep_records", to: "user_follows#followers_sleep_records"
     end
 end

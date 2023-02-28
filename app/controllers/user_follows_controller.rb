@@ -29,4 +29,14 @@ class UserFollowsController < ApplicationController
     @user_follow.destroy
     render json: @user_follow
   end
+
+  def followers_sleep_records
+    @user = User.find(params[:user_id])
+    @user_follows = UserFollow.where(followee_id: @user.id)
+    week_ago = 1.week.ago.beginning_of_day
+    @sleep_records = SleepRecord.where(user_id: @user_follows.map(&:follower_id)).where("created_at >= ?", week_ago)
+    .select("*, strftime('%s', wake_time) - strftime('%s', sleep_time) AS duration_seconds")
+    .order("duration_seconds DESC")
+    render json: @sleep_records
+  end
 end
