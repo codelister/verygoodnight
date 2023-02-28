@@ -31,6 +31,7 @@ class UserFollowsController < ApplicationController
   end
 
   def followers_sleep_records
+    # Return all the sleep records of the users that follow the user with the given id
     @user = User.find(params[:user_id])
     @user_follows = UserFollow.where(followee_id: @user.id)
     week_ago = 1.week.ago.beginning_of_day
